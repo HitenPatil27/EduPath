@@ -140,9 +140,11 @@ def get_sessions_for_user(user_id):
     """Return list of session dicts for a user, newest first."""
     docs = (db.collection('sessions')
               .where('userId', '==', user_id)
-              .order_by('createdAt', direction='DESCENDING')
               .stream())
-    return [_doc_to_dict(d) for d in docs]
+    results = [_doc_to_dict(d) for d in docs]
+    # Sort in Python to avoid requiring a Firestore composite index
+    results.sort(key=lambda s: s.get('createdAt', ''), reverse=True)
+    return results
 
 
 # ─────────────────────────── QA History ───────────────────────────────

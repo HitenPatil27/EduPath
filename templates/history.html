@@ -65,10 +65,10 @@
                         </div>
                         <div class="w-full md:w-auto">
                             ${isDone 
-                                ? `<button onclick="viewResults(${sess.id})" class="w-full md:w-auto px-8 py-3 rounded-xl border border-indigo-100 text-indigo-600 font-bold hover:bg-indigo-600 hover:text-white transition-all flex items-center justify-center gap-2">
+                                ? `<button onclick="viewResults('${sess.id}')" class="w-full md:w-auto px-8 py-3 rounded-xl border border-indigo-100 text-indigo-600 font-bold hover:bg-indigo-600 hover:text-white transition-all flex items-center justify-center gap-2">
                                     Explore Blueprint <i class="fas fa-chevron-right text-xs"></i>
                                    </button>`
-                                : `<button onclick="continueSession(${sess.id})" class="w-full md:w-auto btn-primary flex items-center justify-center gap-2">
+                                : `<button onclick="continueSession('${sess.id}')" class="w-full md:w-auto btn-primary flex items-center justify-center gap-2">
                                     Resume Session <i class="fas fa-arrow-right"></i>
                                    </button>`
                             }
