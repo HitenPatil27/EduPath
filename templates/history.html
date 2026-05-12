@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-12 bg-slate-50 min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+            <div>
+                <h2 class="text-4xl font-black text-gray-900 italic tracking-tight mb-2">My Pathways</h2>
+                <p class="text-gray-500 italic">Manage and review your AI-generated career blueprints.</p>
+            </div>
+            <a href="/onboarding" class="btn-primary flex items-center gap-2 group">
+                <i class="fas fa-plus group-hover:rotate-90 transition-transform"></i> 
+                New Intelligence Session
+            </a>
+        </div>
+        
+        <div id="sessionsList" class="space-y-6">
+            <div class="text-center py-24">
+                <div class="w-12 h-12 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4"></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    window.addEventListener('DOMContentLoaded', async () => {
+        if (!getUser()) window.location.href = '/';
+        
+        const sessions = await apiFetch('/api/sessions');
+        const list = document.getElementById('sessionsList');
+        
+        if (sessions && sessions.length > 0) {
+            list.innerHTML = '';
+            sessions.forEach(sess => {
+                const dateRaw = new Date(sess.createdAt);
+                
+                const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = dateRaw.toLocaleDateString(undefined, optionsDate);
+                const optionsTime = { hour: '2-digit', minute: '2-digit' };
+                const formattedTime = dateRaw.toLocaleTimeString(undefined, optionsTime);
+
+                const isDone = sess.status === 'completed';
+                const statusColor = isDone ? 'bg-green-50 text-green-700 border-green-100' : 'bg-amber-50 text-amber-700 border-amber-100';
+                const statusIcon = isDone ? 'fa-check-circle' : 'fa-spinner fa-spin';
+
+                list.innerHTML += `
+                    <div class="glass p-8 rounded-[2rem] border border-white shadow-xl flex flex-col md:flex-row justify-between items-center card-hover transition-all bg-white/70">
+                        <div class="flex items-center gap-6 mb-6 md:mb-0">
+                            <div class="w-16 h-16 rounded-2xl ${isDone ? 'bg-indigo-600 text-white' : 'bg-indigo-50 text-indigo-300'} flex items-center justify-center text-2xl shadow-lg">
+                                <i class="fas ${isDone ? 'fa-lightbulb' : 'fa-brain'}"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 mb-1">
+                                    <h3 class="font-bold text-gray-900 text-xl italic">${formattedDate}</h3>
+                                    <span class="px-3 py-1 rounded-full text-[10px] uppercase font-black tracking-widest border ${statusColor}">
+                                        <i class="fas ${statusIcon} mr-1"></i> ${sess.status}
+                                    </span>
+                                </div>
+                                <p class="text-gray-400 text-sm font-medium italic">Initiated at ${formattedTime}</p>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-auto">
+                            ${isDone 
+                                ? `<button onclick="viewResults(${sess.id})" class="w-full md:w-auto px-8 py-3 rounded-xl border border-indigo-100 text-indigo-600 font-bold hover:bg-indigo-600 hover:text-white transition-all flex items-center justify-center gap-2">
+                                    Explore Blueprint <i class="fas fa-chevron-right text-xs"></i>
+                                   </button>`
+                                : `<button onclick="continueSession(${sess.id})" class="w-full md:w-auto btn-primary flex items-center justify-center gap-2">
+                                    Resume Session <i class="fas fa-arrow-right"></i>
+                                   </button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            });
+        } else {
+            list.innerHTML = `
+                <div class="text-center glass p-20 rounded-[3rem] border border-dashed border-indigo-200">
+                    <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-200 text-4xl mx-auto mb-6">
+                        <i class="fas fa-ghost"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2 italic">No History Found</h3>
+                    <p class="text-gray-400 italic mb-10">You haven't embarked on a career discovery journey yet.</p>
+                    <a href="/onboarding" class="btn-primary px-10">Start Your First Journey</a>
+                </div>
+            `;
+        }
+    });
+
+    function viewResults(id) {
+        localStorage.setItem('activeSessionId', id);
+        window.location.href = '/results';
+    }
+
+    function continueSession(id) {
+        localStorage.setItem('activeSessionId', id);
+        window.location.href = '/questionnaire';
+    }
+</script>
+{% endblock %}

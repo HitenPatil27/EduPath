@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="py-12 fade-in">
+    <div class="max-w-3xl mx-auto px-4">
+        <!-- Progress Bar -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div class="flex flex-col items-center flex-1">
+                    <div id="step1-indicator" class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">1</div>
+                    <span class="text-xs mt-2 font-medium text-gray-700">Education</span>
+                </div>
+                <div class="w-full h-1 bg-gray-200 flex-1 mx-2">
+                    <div id="progress-bar-1" class="h-full bg-indigo-600 w-0 transition-all duration-300"></div>
+                </div>
+                <div class="flex flex-col items-center flex-1">
+                    <div id="step2-indicator" class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold transition-colors">2</div>
+                    <span class="text-xs mt-2 font-medium text-gray-700">Interests</span>
+                </div>
+                <div class="w-full h-1 bg-gray-200 flex-1 mx-2">
+                    <div id="progress-bar-2" class="h-full bg-indigo-600 w-0 transition-all duration-300"></div>
+                </div>
+                <div class="flex flex-col items-center flex-1">
+                    <div id="step3-indicator" class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold transition-colors">3</div>
+                    <span class="text-xs mt-2 font-medium text-gray-700">Review</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass rounded-3xl p-10 shadow-xl border border-white/50 relative overflow-hidden">
+            <!-- Decorative circle -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl"></div>
+
+            <!-- Step 1 -->
+            <div id="step1" class="block fade-in">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Education Background</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Education Level</label>
+                        <select id="educationLevel" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="">Select Level</option>
+                            <option value="High School">High School</option>
+                            <option value="Bachelor's Degree">Bachelor's Degree</option>
+                            <option value="Master's Degree">Master's Degree</option>
+                            <option value="PhD">PhD</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Field of Study</label>
+                        <input type="text" id="fieldOfStudy" placeholder="e.g. Computer Science" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Institution (Optional)</label>
+                        <input type="text" id="institution" placeholder="e.g. Stanford University" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Graduation Year</label>
+                        <input type="number" id="graduationYear" placeholder="2024" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">What's Next?</label>
+                        <div class="space-y-2">
+                            <label class="inline-flex items-center"><input type="radio" name="nextStep" value="Exploring Options" class="text-indigo-600 form-radio"><span class="ml-2">Exploring Options</span></label><br>
+                            <label class="inline-flex items-center"><input type="radio" name="nextStep" value="Further Studies" class="text-indigo-600 form-radio"><span class="ml-2">Further Studies</span></label><br>
+                            <label class="inline-flex items-center"><input type="radio" name="nextStep" value="Job Hunting" class="text-indigo-600 form-radio"><span class="ml-2">Job Hunting</span></label><br>
+                            <label class="inline-flex items-center"><input type="radio" name="nextStep" value="Switching Careers" class="text-indigo-600 form-radio"><span class="ml-2">Switching Careers</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-end">
+                    <button onclick="nextStep(2)" class="btn-primary">Next <i class="fas fa-arrow-right ml-2"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div id="step2" class="hidden fade-in">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Interests & Hobbies</h2>
+                <p class="text-gray-600 mb-6">Select at least 3 interests to help us personalize your recommendations.</p>
+                
+                <div id="interestsGrid" class="flex flex-wrap gap-3 mb-6">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="flex items-center gap-2 mb-8">
+                    <input type="text" id="customInterest" placeholder="Add other skill or interest..." class="flex-1 max-w-xs px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                    <button type="button" onclick="addCustomInterest()" class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full font-medium hover:bg-indigo-200 transition-colors"><i class="fas fa-plus mr-1"></i> Add</button>
+                </div>
+
+                <div class="mt-8 flex justify-between">
+                    <button onclick="prevStep(1)" class="btn-secondary"><i class="fas fa-arrow-left mr-2"></i> Back</button>
+                    <button onclick="nextStep(3)" id="btnStep2Next" class="btn-primary opacity-50 cursor-not-allowed" disabled>Next <i class="fas fa-arrow-right ml-2"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div id="step3" class="hidden fade-in">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Review & Confirm</h2>
+                
+                <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-lg text-indigo-600">Education Details</h3>
+                        <button onclick="prevStep(1)" class="text-sm text-gray-500 hover:text-indigo-600"><i class="fas fa-edit"></i> Edit</button>
+                    </div>
+                    <ul class="space-y-2 text-gray-700" id="review-education">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-lg text-indigo-600">Selected Interests</h3>
+                        <button onclick="prevStep(2)" class="text-sm text-gray-500 hover:text-indigo-600"><i class="fas fa-edit"></i> Edit</button>
+                    </div>
+                    <div id="review-interests" class="flex flex-wrap gap-2">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div id="errorMsg" class="hidden bg-red-100 text-red-700 p-3 rounded mt-4 text-center"></div>
+
+                <div class="mt-8 flex justify-between">
+                    <button onclick="prevStep(2)" class="btn-secondary"><i class="fas fa-arrow-left mr-2"></i> Back</button>
+                    <button onclick="submitProfile()" id="submitBtn" class="btn-primary flex items-center gap-2 group">
+                        Confirm & Start <i class="fas fa-sparkles group-hover:rotate-12 transition-transform"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const allInterests = [
+        "Technology", "Art & Design", "Writing", "Public Speaking", "Data Analysis",
+        "Healthcare", "Finance", "Education", "Marketing", "Psychology",
+        "Engineering", "Music", "Photography", "Gaming", "Sports",
+        "Cooking", "Travel", "Environment", "Business", "Social Media"
+    ];
+    let selectedInterests = new Set();
+    let profileData = {};
+
+    window.addEventListener('DOMContentLoaded', async () => {
+        if (!getUser()) window.location.href = '/';
+        
+        // Populate interests
+        const grid = document.getElementById('interestsGrid');
+        allInterests.forEach(interest => {
+            const btn = document.createElement('button');
+            btn.className = "px-4 py-2 border-2 border-gray-200 rounded-full text-gray-600 font-medium hover:border-indigo-400 focus:outline-none transition-all duration-300 transform";
+            btn.textContent = interest;
+            btn.onclick = () => toggleInterest(interest, btn);
+            grid.appendChild(btn);
+        });
+    });
+
+    function toggleInterest(interest, btn) {
+        if (selectedInterests.has(interest)) {
+            selectedInterests.delete(interest);
+            btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600', 'scale-105');
+            btn.classList.add('border-gray-200', 'text-gray-600');
+        } else {
+            selectedInterests.add(interest);
+            btn.classList.remove('border-gray-200', 'text-gray-600');
+            btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600', 'scale-105');
+        }
+        
+        const nextBtn = document.getElementById('btnStep2Next');
+        if (selectedInterests.size >= 3) {
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        } else {
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+    }
+
+    function addCustomInterest() {
+        const input = document.getElementById('customInterest');
+        const val = input.value.trim();
+        if (val && !selectedInterests.has(val)) {
+            const grid = document.getElementById('interestsGrid');
+            const btn = document.createElement('button');
+            btn.className = "px-4 py-2 border-2 rounded-full font-medium hover:border-indigo-400 focus:outline-none transition-all duration-300 transform bg-indigo-600 text-white border-indigo-600 scale-105";
+            btn.textContent = val;
+            btn.onclick = () => toggleInterest(val, btn);
+            grid.appendChild(btn);
+            
+            selectedInterests.add(val);
+            input.value = '';
+            
+            const nextBtn = document.getElementById('btnStep2Next');
+            if (selectedInterests.size >= 3) {
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+    }
+
+    // Allow Enter key to add custom interest
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('customInterest')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addCustomInterest();
+            }
+        });
+    });
+
+    function nextStep(step) {
+        if (step === 2) {
+            const level = document.getElementById('educationLevel').value;
+            const field = document.getElementById('fieldOfStudy').value;
+            const nextStepObj = document.querySelector('input[name="nextStep"]:checked');
+            
+            if (!level || !field || !nextStepObj) {
+                alert('Please fill out required fields (Level, Field, Next Step).');
+                return;
+            }
+            
+            profileData.educationLevel = level;
+            profileData.fieldOfStudy = field;
+            profileData.institution = document.getElementById('institution').value;
+            profileData.graduationYear = document.getElementById('graduationYear').value;
+            profileData.nextStep = nextStepObj.value;
+
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            document.getElementById('progress-bar-1').style.width = '100%';
+            document.getElementById('step2-indicator').classList.replace('bg-gray-300', 'bg-indigo-600');
+            document.getElementById('step2-indicator').classList.replace('text-gray-600', 'text-white');
+        } else if (step === 3) {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+            document.getElementById('progress-bar-2').style.width = '100%';
+            document.getElementById('step3-indicator').classList.replace('bg-gray-300', 'bg-indigo-600');
+            document.getElementById('step3-indicator').classList.replace('text-gray-600', 'text-white');
+            
+            // Populate review
+            document.getElementById('review-education').innerHTML = `
+                <li><strong>Level:</strong> ${profileData.educationLevel}</li>
+                <li><strong>Field:</strong> ${profileData.fieldOfStudy}</li>
+                <li><strong>Institution:</strong> ${profileData.institution || 'N/A'}</li>
+                <li><strong>Grad Year:</strong> ${profileData.graduationYear || 'N/A'}</li>
+                <li><strong>Next Step:</strong> ${profileData.nextStep}</li>
+            `;
+            
+            const intContainer = document.getElementById('review-interests');
+            intContainer.innerHTML = '';
+            selectedInterests.forEach(i => {
+                const span = document.createElement('span');
+                span.className = "bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded";
+                span.textContent = i;
+                intContainer.appendChild(span);
+            });
+        }
+    }
+
+    function prevStep(step) {
+        if (step === 1) {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+            document.getElementById('progress-bar-1').style.width = '0%';
+            document.getElementById('step2-indicator').classList.replace('bg-indigo-600', 'bg-gray-300');
+            document.getElementById('step2-indicator').classList.replace('text-white', 'text-gray-600');
+        } else if (step === 2) {
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            document.getElementById('progress-bar-2').style.width = '0%';
+            document.getElementById('step3-indicator').classList.replace('bg-indigo-600', 'bg-gray-300');
+            document.getElementById('step3-indicator').classList.replace('text-white', 'text-gray-600');
+        }
+    }
+
+    async function submitProfile() {
+        // Collect everything
+        profileData.interests = Array.from(selectedInterests);
+        profileData.hobbies = []; // can add if needed
+        
+        const btn = document.getElementById('submitBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        errorMsg.classList.add('hidden');
+
+        try {
+            const res = await apiFetch('/api/profile', {
+                method: 'PUT',
+                body: JSON.stringify(profileData)
+            });
+
+            if (res && res.message === 'Profile updated successfully') {
+                const user = getUser();
+                user.profileComplete = true;
+                localStorage.setItem('user', JSON.stringify(user));
+                window.location.href = '/dashboard';
+            } else {
+                errorMsg.classList.remove('hidden');
+                errorMsg.textContent = res ? res.message : 'Error updating profile';
+            }
+        } catch(err) {
+            errorMsg.classList.remove('hidden');
+            errorMsg.textContent = 'Network error.';
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = 'Confirm & Start <i class="fas fa-check ml-2"></i>';
+        }
+    }
+</script>
+{% endblock %}

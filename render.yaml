@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: edupath
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.6
+      - key: FIREBASE_CREDENTIALS
+        sync: false
+      - key: FIREBASE_API_KEY
+        sync: false
+      - key: FIREBASE_AUTH_DOMAIN
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        sync: false
+      - key: PORT
+        sync: false
+      - key: CLIENT_URL
+        sync: false

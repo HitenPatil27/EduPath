@@ -1,0 +1,39 @@
+# Environment & Secrets
+.env
+*.json
+!package.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+venv/
+env/
+.venv/
+
+# Database
+*.sqlite
+*.db
+instance/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Reports (large generated files)
+*.docx
+
+# Misc
+*.log
+.gemini/

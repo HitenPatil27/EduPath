@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPath AI - Career Guidance Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #667eea;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #5a67d8;
+        }
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-graduation-cap text-2xl text-indigo-600 mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">EduPath AI</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#features" class="nav-link text-gray-700 hover:text-indigo-600">Features</a>
+                    <a href="#assessment" class="nav-link text-gray-700 hover:text-indigo-600">Assessment</a>
+                    <a href="#opportunities" class="nav-link text-gray-700 hover:text-indigo-600">Opportunities</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-indigo-600">About</a>
+                    <a href="#login" class="btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    Discover Your Perfect Career Path
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    AI-powered career guidance tailored to your skills, interests, and goals
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#assessment" class="btn-primary bg-white text-indigo-600 hover:bg-gray-100">
+                        Start Assessment
+                    </a>
+                    <a href="#features" class="btn-secondary bg-transparent border-2 border-white hover:bg-white hover:text-indigo-600">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Powerful Features for Your Career Journey
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Everything you need to make informed career decisions
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card card-hover">
+                    <div class="text-4xl text-indigo-600 mb-4">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">AI Career Coach</h3>
+                    <p class="text-gray-600 mb-4">
+                        Get personalized career advice from our AI-powered career coach that understands your unique profile and goals.
+                    </p>
+                    <a href="#ai-chat" class="text-indigo-600 hover:text-indigo-800 font-semibold">
+                        Try AI Coach <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+                <div class="feature-card card-hover">
+                    <div class="text-4xl text-indigo-600 mb-4">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Skills Assessment</h3>
+                    <p class="text-gray-600 mb-4">
+                        Comprehensive assessment of your skills, strengths, and areas for development with detailed analytics.
+                    </p>
+                    <a href="#assessment" class="text-indigo-600 hover:text-indigo-800 font-semibold">
+                        Take Assessment <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+                <div class="feature-card card-hover">
+                    <div class="text-4xl text-indigo-600 mb-4">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Career Roadmap</h3>
+                    <p class="text-gray-600 mb-4">
+                        Step-by-step career roadmap with milestones, learning paths, and actionable recommendations.
+                    </p>
+                    <a href="#roadmap" class="text-indigo-600 hover:text-indigo-800 font-semibold">
+                        View Roadmap <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment Section -->
+    <section id="assessment" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Start Your Career Assessment
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Get personalized insights about your career potential
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Quick Assessment</h3>
+                    <p class="text-gray-600 mb-6">
+                        Complete a comprehensive assessment in just 10 minutes. Our AI will analyze your responses and provide personalized career recommendations.
+                    </p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Personalized career recommendations
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Skills gap analysis
+                        </li>
+                        <li class="flex items-center text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Learning path suggestions
+                        </li>
+                    </ul>
+                    <a href="#assessment-form" class="btn-primary">
+                        Start Assessment <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-center">
+                        <div class="text-6xl text-indigo-600 mb-4">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Ready to Begin?</h4>
+                        <p class="text-gray-600 mb-4">
+                            Join thousands of professionals who have found their ideal career path
+                        </p>
+                        <div class="text-sm text-gray-500">
+                            <i class="fas fa-clock mr-1"></i>
+                            Takes approximately 10 minutes
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opportunities Section -->
+    <section id="opportunities" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Career Opportunities
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Explore trending career paths and opportunities
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-code text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900">Software Development</h3>
+                            <p class="text-sm text-gray-600">High Demand</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Build applications and systems that power the digital world.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">$70k - $150k</span>
+                        <span class="text-sm text-green-600 font-semibold">+25% Growth</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-chart-bar text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900">Data Science</h3>
+                            <p class="text-sm text-gray-600">Very High Demand</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Analyze complex data to drive business decisions and insights.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">$80k - $160k</span>
+                        <span class="text-sm text-green-600 font-semibold">+35% Growth</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-bullhorn text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900">Digital Marketing</h3>
+                            <p class="text-sm text-gray-600">High Demand</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Create and execute marketing strategies for digital platforms.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">$50k - $100k</span>
+                        <span class="text-sm text-green-600 font-semibold">+20% Growth</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    About EduPath AI
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Empowering career decisions with artificial intelligence
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
+                    <p class="text-gray-600 mb-6">
+                        We believe everyone deserves a fulfilling career. EduPath AI uses cutting-edge artificial intelligence to provide personalized career guidance, helping individuals make informed decisions about their professional future.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-indigo-600 mb-2">10,000+</div>
+                            <div class="text-gray-600">Users Helped</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-indigo-600 mb-2">95%</div>
+                            <div class="text-gray-600">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold text-gray-900 mb-4">Why Choose EduPath AI?</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">AI-powered personalized recommendations</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Comprehensive skills assessment</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Detailed career roadmaps</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Real-time market insights</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-graduation-cap text-2xl text-indigo-400 mr-2"></i>
+                        <span class="text-xl font-bold">EduPath AI</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Your AI-powered career guidance platform
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#features" class="hover:text-white">Features</a></li>
+                        <li><a href="#assessment" class="hover:text-white">Assessment</a></li>
+                        <li><a href="#opportunities" class="hover:text-white">Opportunities</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                        <li><a href="#" class="hover:text-white">Career Guide</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 EduPath AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Assessment Form -->
+    <div id="assessment-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="bg-white rounded-lg max-w-md w-full p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-900">Start Your Assessment</h3>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="assessment-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Name</label>
+                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Email</label>
+                        <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">Current Field</label>
+                        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option>Select your field</option>
+                            <option>Technology</option>
+                            <option>Business</option>
+                            <option>Healthcare</option>
+                            <option>Education</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-semibold mb-2">Experience Level</label>
+                        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option>Select experience</option>
+                            <option>Entry Level (0-2 years)</option>
+                            <option>Mid Level (2-5 years)</option>
+                            <option>Senior Level (5-10 years)</option>
+                            <option>Executive (10+ years)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full btn-primary text-center">
+                        Start Assessment <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Modal functionality
+        function openModal() {
+            document.getElementById('assessment-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('assessment-modal').classList.add('hidden');
+        }
+
+        // Handle assessment form
+        document.getElementById('assessment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for starting your assessment! This is a demo version. In the full version, you would begin the AI-powered assessment process.');
+            closeModal();
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and opportunity cards
+        document.querySelectorAll('.feature-card, .card-hover').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle "Get Started" button
+        document.querySelectorAll('a[href="#login"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+        });
+
+        // Handle "Start Assessment" links
+        document.querySelectorAll('a[href="#assessment-form"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-slate-950">
+    <!-- Animated background elements -->
+    <div class="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600 rounded-full filter blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600 rounded-full filter blur-[120px] animate-pulse" style="animation-delay: 2s;"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center relative z-10">
+        <div class="fade-in">
+            <span class="inline-block py-1 px-4 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-semibold mb-6">
+                Next-Gen Career Intelligence
+            </span>
+            <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight mb-8">
+                Decode Your <br>
+                <span class="gradient-text">Future Path</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-10 max-w-lg leading-relaxed">
+                Leverage advanced AI to analyze your unique profile, interests, and aspirations. Get hyper-personalized career roadmaps with real-time data.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="/register" class="btn-primary text-center">Get Started Free</a>
+                <a href="#how-it-works" class="px-8 py-3 rounded-xl border border-gray-700 text-white font-semibold hover:bg-white/5 transition-all text-center">
+                    Learn More
+                </a>
+            </div>
+            
+            <div class="mt-12 flex items-center gap-6">
+                <div class="flex -space-x-4">
+                    <img src="https://i.pravatar.cc/100?u=1" class="w-12 h-12 rounded-full border-2 border-slate-950" alt="User">
+                    <img src="https://i.pravatar.cc/100?u=2" class="w-12 h-12 rounded-full border-2 border-slate-950" alt="User">
+                    <img src="https://i.pravatar.cc/100?u=3" class="w-12 h-12 rounded-full border-2 border-slate-950" alt="User">
+                </div>
+                <div>
+                    <p class="text-white font-bold">5,000+ Students</p>
+                    <p class="text-gray-500 text-sm">Found their dream careers</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="relative fade-in" style="animation-delay: 0.2s;">
+            <div class="glass-dark rounded-3xl p-2 relative">
+                <img src="/static/hero.png" class="rounded-2xl w-full shadow-2xl" alt="EduPath Discovery">
+                <!-- Floating Card 1 -->
+                <div class="absolute -top-6 -left-6 glass p-4 rounded-2xl shadow-xl animate-bounce" style="animation-duration: 4s;">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                            <i class="fas fa-check text-green-500"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-500">Match Found</p>
+                            <p class="text-sm font-bold text-gray-800 italic">UX Designer (98%)</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Floating Card 2 -->
+                <div class="absolute -bottom-6 -right-6 glass p-4 rounded-2xl shadow-xl animate-bounce" style="animation-duration: 5s;">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-600">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-500">Growth</p>
+                            <p class="text-sm font-bold text-gray-800 italic">High Demand</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Why Choose EduPath?</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto italic">We don't just guess. We analyze tens of thousands of data points to map your perfect trajectory.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+            <div class="p-8 rounded-3xl bg-slate-50 card-hover">
+                <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-2xl mx-auto mb-6">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 italic">Adaptive AI Chat</h3>
+                <p class="text-gray-600 italic">Our AI asks deep, meaningful questions that evolve based on your previous answers.</p>
+            </div>
+            
+            <div class="p-8 rounded-3xl bg-slate-50 card-hover">
+                <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 text-2xl mx-auto mb-6">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 italic">Skill Gap Analysis</h3>
+                <p class="text-gray-600 italic">Don't just see a title; understand exactly which skills you need to achieve it.</p>
+            </div>
+            
+            <div class="p-8 rounded-3xl bg-slate-50 card-hover">
+                <div class="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center text-pink-600 text-2xl mx-auto mb-6">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 italic">Market Insights</h3>
+                <p class="text-gray-600 italic">Real-time salary ranges and growth projections for every recommended career path.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How it Works Section -->
+<section id="how-it-works" class="py-24 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row gap-16 items-center">
+            <div class="md:w-1/2">
+                <h2 class="text-4xl font-bold mb-8">How It Works</h2>
+                <div class="space-y-8">
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 rounded-full bg-indigo-600 text-white flex-shrink-0 flex items-center justify-center font-bold">1</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2 italic text-gray-800">Build Your Core Profile</h4>
+                            <p class="text-gray-600 italic">Tell us about your education and what moves you. This is the foundation.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 rounded-full bg-indigo-600 text-white flex-shrink-0 flex items-center justify-center font-bold">2</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2 italic text-gray-800">Adaptive Questionnaire</h4>
+                            <p class="text-gray-600 italic">Engage in a 5-minute dynamic session with our AI to uncover hidden strengths.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 rounded-full bg-indigo-600 text-white flex-shrink-0 flex items-center justify-center font-bold">3</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2 italic text-gray-800">Get Your Top 10 Paths</h4>
+                            <p class="text-gray-600 italic">Receive a ranked list of careers with detailed "Why It Fits" breakdowns.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 bg-white p-8 rounded-3xl shadow-xl">
+                 <div class="space-y-4">
+                    <div class="p-4 border border-indigo-100 rounded-xl bg-indigo-50/50 flex justify-between items-center group cursor-default">
+                        <div class="flex items-center gap-4">
+                           <div class="w-2 h-2 rounded-full bg-indigo-600"></div>
+                           <span class="font-semibold italic">What environments do you thrive in?</span>
+                        </div>
+                        <i class="fas fa-chevron-right text-indigo-300"></i>
+                    </div>
+                    <div class="p-4 border border-gray-100 rounded-xl italic text-gray-400 group cursor-default">
+                        AI is thinking...
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="h-20 rounded-xl bg-slate-100 animate-pulse"></div>
+                        <div class="h-20 rounded-xl bg-slate-100 animate-pulse" style="animation-delay: 0.2s;"></div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (getUser()) {
+            if (getUser().profileComplete) {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/onboarding';
+            }
+        }
+        
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}
