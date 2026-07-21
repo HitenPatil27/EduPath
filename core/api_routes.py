@@ -215,6 +215,11 @@ def _ask_next_question(user, session):
         
     profile = _get_user_profile(user)
     qa_history = _get_qa_history_list(session['id'])
+    num_answered = len(qa_history)
+
+    # Hard cap: if 5 questions have been answered, complete the assessment immediately
+    if num_answered >= 5:
+        return jsonify({'done': True, 'sessionId': session['id']})
     
     next_step = profile.get('nextStep', '')
     edu_level = profile.get('educationLevel', '')
@@ -235,16 +240,22 @@ def _ask_next_question(user, session):
     else:
         strategy = "The user is Exploring Options. Act as a broad diagnostic guide. Ask questions that reveal hidden passions or personality traits that align with diverse career clusters."
 
-    system_prompt = f"""You are an expert career counselor AI. Ask ONE adaptive question at a time based on the user's profile and all previous answers.
-    
+    system_prompt = f"""You are an expert, efficient career counselor AI. Your goal is to quickly understand the user and generate personalized career recommendations with MINIMAL questions (3 to 5 questions maximum).
+
 COUNSELING STRATEGY:
 {strategy}
 
-Respond ONLY in JSON:
-- If more questions needed (aim for 6-10 questions total):
-  {{ "question": "...", "context": "why you're asking", "type": "single-select|multi-select|slider|text", "options": [...] }}
-- If enough data collected (after 6-10 questions):
-  {{ "done": true }}"""
+CURRENT PROGRESS:
+- Questions answered so far: {num_answered}
+
+CRITICAL RULES:
+1. If {num_answered} >= 3 OR if you already have enough information to understand their preferences, return {{ "done": true }}.
+2. Do NOT ask repetitive or unnecessary questions. Keep questions brief and high-impact.
+3. Respond ONLY in valid JSON:
+   - If more questions needed (MAX 3-5 total):
+     {{ "question": "...", "context": "why you're asking", "type": "single-select|multi-select|slider|text", "options": [...] }}
+   - If enough data collected (or 3+ questions answered):
+     {{ "done": true }}"""
 
     user_prompt = f"User Profile: {json.dumps(profile)}\nQ&A History: {json.dumps(qa_history)}\nGenerate next response in JSON mode."
     
