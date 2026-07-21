@@ -106,23 +106,23 @@ FLASK_APP=app.py
 FLASK_ENV=development
 SECRET_KEY=your-secret-key-here-change-this-in-production
 
-# Groq API (Required for AI functionality)
-GROQ_API_KEY=your-groq-api-key-here
+# HuggingFace AI (Required for AI functionality)
+HF_API_KEY=your-huggingface-api-key-here
 ```
 
-## Step 3: Groq API Setup
+## Step 3: HuggingFace API Setup
 
-### 3.1 Get Groq API Key
-1. Visit https://console.groq.com/
+### 3.1 Get HuggingFace API Key
+1. Visit https://huggingface.co/settings/tokens
 2. Sign up or log in
-3. Navigate to API Keys section
-4. Create a new API key
+3. Navigate to Access Tokens section
+4. Create a new token (Read access is sufficient)
 5. Copy the key to your `.env` file
 
 ### 3.2 Update Environment Variables
 In your `.env` file:
 ```env
-GROQ_API_KEY=gsk_your_actual_api_key_here
+HF_API_KEY=hf_your_actual_api_key_here
 ```
 
 ## Step 4: Initialize Database Tables
@@ -192,10 +192,10 @@ Open your web browser and navigate to:
 - Ensure database name is correct
 
 #### 2. Import Error
-**Error**: `ModuleNotFoundError: No module named 'groq'`
+**Error**: `ModuleNotFoundError: No module named 'huggingface_hub'`
 **Solution**:
 ```bash
-pip install groq
+pip install huggingface_hub
 ```
 
 #### 3. Database Tables Not Found
@@ -204,10 +204,10 @@ pip install groq
 - Run database initialization (Step 4.1)
 - Verify database connection string
 
-#### 4. Groq API Error
+#### 4. HuggingFace API Error
 **Error**: `Invalid API key`
 **Solution**:
-- Verify Groq API key in `.env` file
+- Verify HuggingFace API key in `.env` file
 - Check API key is valid and active
 
 #### 5. Port Already in Use
@@ -281,7 +281,7 @@ gunicorn -w 4 -b 0.0.0.0:5000 app:create_app()
 2. Verify all environment variables are set
 3. Ensure all dependencies are installed
 4. Test database connection separately
-5. Check Groq API key validity
+5. Check HuggingFace API key validity
 
 ### Log Files:
 - Application logs: Console output

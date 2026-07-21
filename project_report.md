@@ -8,7 +8,7 @@
 ## 2. Project Vision & Goals
 - **Personalization**: Move beyond generic advice to hyper-personalized career roadmaps.
 - **Engagement**: Provide a premium, interactive user experience that feels "alive" and responsive.
-- **Data-Driven**: Use real-time LLM capabilities (Groq/Qwen) to provide up-to-date career descriptions and growth outlooks.
+- **Data-Driven**: Use real-time LLM capabilities (HuggingFace/GPT-OSS 120B) to provide up-to-date career descriptions and growth outlooks.
 
 ---
 
@@ -16,7 +16,7 @@
 ### **Backend**
 - **Framework**: Flask (Python)
 - **Database**: SQLite with SQLAlchemy ORM
-- **AI Core**: Groq SDK (Model: `qwen/qwen3-32b`)
+- **AI Core**: HuggingFace Hub SDK (Model: `openai/gpt-oss-120b`)
 - **Authentication**: PyJWT (JSON Web Tokens)
 - **Environment**: Python-dotenv for secure configuration
 
@@ -39,7 +39,7 @@ The onboarding flow is a 3-step dynamic wizard that collects:
 
 ### 4.2 Adaptive AI Questionnaire
 Managed by the `AIAgentService` logic in `app.py`:
-- **Adaptive Questions**: The AI (Qwen 32B) generates questions one by one.
+- **Adaptive Questions**: The AI (GPT-OSS 120B) generates questions one by one.
 - **Context Awareness**: Each question is based on the user's profile and previous answers.
 - **Termination Logic**: The AI determines when it has enough information (typically 6-10 questions) to finalize the report.
 
@@ -88,7 +88,7 @@ The project follows a **Premium Modern Web** design language:
 
 ### **Prerequisites**
 - Python 3.8+
-- Groq API Key (Set in `.env`)
+- HuggingFace API Key (Set in `.env`)
 
 ### **Commands**
 ```bash
@@ -96,7 +96,7 @@ The project follows a **Premium Modern Web** design language:
 pip install -r requirements.txt
 
 # Configure Environment
-# Rename .env.example to .env and add GROQ_API_KEY
+# Rename .env.example to .env and add HF_API_KEY
 
 # Launch Application
 python app.py

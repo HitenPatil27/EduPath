@@ -43,7 +43,7 @@ IF NOT EXISTS ".env" (
         ECHO.
         ECHO IMPORTANT: Please edit .env file with your:
         ECHO - MySQL database credentials
-        ECHO - Groq API key
+        ECHO - HuggingFace API key
         ECHO - Secret key
         ECHO.
         ECHO Then run this script again or start the application manually.

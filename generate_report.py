@@ -88,13 +88,13 @@ def create_report():
     add_heading(doc, "ACKNOWLEDGEMENT", level=1)
     add_content(doc, "I would like to express my sincere gratitude to my project coordinator and the Department of Computer Science for providing me with the resources and environment necessary to complete this project. This journey has been an immense learning experience that has broadened my horizons in the field of Artificial Intelligence and Full-stack Development.")
     add_content(doc, "I am deeply indebted to my guide, [Guide Name], whose valuable insights and constant encouragement kept me motivated throughout the different phases of this project. Their expertise in software architecture and machine learning helped me navigate through complex technical challenges.")
-    add_content(doc, "I would also like to thank the open-source community and the developers of the Groq SDK and Flask Framework, which served as the foundation for this system. Lastly, I am grateful to my family and friends for their unwavering support during the development of EduPath AI.")
+    add_content(doc, "I would also like to thank the open-source community and the developers of the HuggingFace Hub SDK and Flask Framework, which served as the foundation for this system. Lastly, I am grateful to my family and friends for their unwavering support during the development of EduPath AI.")
     doc.add_page_break()
 
     # --- ABSTRACT ---
     add_heading(doc, "ABSTRACT", level=1)
     add_content(doc, "In the current era of rapid technological advancement, the job market is constantly evolving, leading to a significant information gap for students and professionals. Traditional career guidance methods, which often rely on static questionnaires and outdated datasets, fail to provide the hyper-personalized guidance required today. EduPath AI is designed to address this challenge by leveraging modern Large Language Models (LLMs) to create an adaptive and intelligent career recommendation system.")
-    add_content(doc, "Built using a robust backend with Python and Flask, and an ultra-fast inference engine via Groq (Qwen 32B model), EduPath AI interacts with users through a dynamic session-based interface. Unlike traditional tests, the system generates follow-up questions in real-time based on the user's educational background, interests, and previous responses. This project culminates in a data-rich 'Career Blueprint' featuring top 10 career matches, detailed skill gap analysis, and market insights. The result is a highly engaging, glassmorphic web application that democratizes access to high-quality career counseling.")
+    add_content(doc, "Built using a robust backend with Python and Flask, and a powerful inference engine via HuggingFace (openai/gpt-oss-120b model), EduPath AI interacts with users through a dynamic session-based interface. Unlike traditional tests, the system generates follow-up questions in real-time based on the user's educational background, interests, and previous responses. This project culminates in a data-rich 'Career Blueprint' featuring top 10 career matches, detailed skill gap analysis, and market insights. The result is a highly engaging, glassmorphic web application that democratizes access to high-quality career counseling.")
     doc.add_page_break()
 
     # --- TABLE OF CONTENTS ---
@@ -172,14 +172,14 @@ def create_report():
     add_content(doc, "- Processor: Quad-core Intel i5 or equivalent (Minimum).")
     add_content(doc, "- RAM: 8GB (Minimum for development), 16GB (Recommended).")
     add_content(doc, "- Storage: 256GB SSD (Minimum for dataset and database storage).")
-    add_content(doc, "- Internet: High-speed stable connection for Groq API calls.")
+    add_content(doc, "- Internet: High-speed stable connection for HuggingFace API calls.")
 
     add_heading(doc, "3.4 Software Requirements", level=2)
     add_content(doc, "- Operating System: Windows 10/11, macOS, or Linux.")
     add_content(doc, "- Languages: Python 3.8+, HTML5, CSS3, JavaScript (ES6+).")
     add_content(doc, "- Frameworks: Flask 3.0.x, Tailwind CSS 3.4.")
     add_content(doc, "- Database: SQLite 3 (for lightweight persistence).")
-    add_content(doc, "- AI SDK: Groq SDK 0.5+.")
+    add_content(doc, "- AI SDK: HuggingFace Hub SDK 0.23+.")
 
     doc.add_page_break()
 
@@ -208,7 +208,7 @@ def create_report():
     add_content(doc, "The system uses a 3-tier architecture:")
     add_content(doc, "1. Presentation Layer: HTML/CSS/JS (Tailwind) for the user interface.")
     add_content(doc, "2. Logic Layer: Flask (Python) handling routing, authentication, and AI orchestration.")
-    add_content(doc, "3. Data Layer: SQLite for user data and the Groq LLM as the knowledge engine.")
+    add_content(doc, "3. Data Layer: SQLite for user data and the HuggingFace LLM as the knowledge engine.")
     add_diagram_placeholder(doc, "System Architecture Diagram showing Frontend, Backend, and AI Cloud interaction.")
 
     doc.add_page_break()
@@ -217,7 +217,7 @@ def create_report():
     add_heading(doc, "6. DATA DESIGN", level=1)
     
     add_heading(doc, "6.1 Data Description", level=2)
-    add_content(doc, "EduPath AI does not rely on a fixed static CSV of careers. Instead, it utilizes the vast internal corpus of the Qwen-32B model, which contains petabytes of indexed career data. User-specific data is stored locally in relational tables.")
+    add_content(doc, "EduPath AI does not rely on a fixed static CSV of careers. Instead, it utilizes the vast internal corpus of the openai/gpt-oss-120b model, which contains petabytes of indexed career data. User-specific data is stored locally in relational tables.")
 
     add_heading(doc, "6.2 Data Dictionary", level=2)
     table = doc.add_table(rows=1, cols=4)
@@ -253,7 +253,7 @@ def create_report():
     add_diagram_placeholder(doc, "DFD Level 0: Career Recommendation Process")
     
     add_heading(doc, "7.2 UML Sequence Diagram", level=2)
-    add_content(doc, "The sequence diagram tracks the lifecycle of an AI request: User -> Frontend -> Flask Controller -> Groq API -> Flask -> Database -> Frontend.")
+    add_content(doc, "The sequence diagram tracks the lifecycle of an AI request: User -> Frontend -> Flask Controller -> HuggingFace API -> Flask -> Database -> Frontend.")
     add_diagram_placeholder(doc, "Sequence Diagram: Adaptive Question Generation")
 
     doc.add_page_break()
@@ -264,7 +264,7 @@ def create_report():
     add_content(doc, "Phase 1 (Week 1-2): Requirement gathering and Literature Review.")
     add_content(doc, "Phase 2 (Week 3-4): UI Prototyping and Frontend Development (Tailwind CSS).")
     add_content(doc, "Phase 3 (Week 5-6): Backend Architecture and Database Schema Design.")
-    add_content(doc, "Phase 4 (Week 7-9): AI Integration and Prompt Engineering (Groq API).")
+    add_content(doc, "Phase 4 (Week 7-9): AI Integration and Prompt Engineering (HuggingFace API).")
     add_content(doc, "Phase 5 (Week 10-11): Testing, Bug Fixing, and Performance Optimization.")
     add_content(doc, "Phase 6 (Week 12): Documentation and Final Report Preparation.")
 
@@ -274,7 +274,7 @@ def create_report():
     add_heading(doc, "9. IMPLEMENTATION", level=1)
     
     add_heading(doc, "9.1 Backend API Logic", level=2)
-    add_content(doc, "The backend is implemented using Flask Blueprints for modularity. Key routes include /api/session/start and /api/session/answer. These routes interact with the Groq client to maintain stateful-like conversations in a stateless web environment.")
+    add_content(doc, "The backend is implemented using Flask Blueprints for modularity. Key routes include /api/session/start and /api/session/answer. These routes interact with the HuggingFace client to maintain stateful-like conversations in a stateless web environment.")
     
     add_heading(doc, "9.2 AI Prompt Engineering", level=2)
     add_content(doc, "A critical part of implementation was the system prompt design. We used 'Few-shot prompting' to ensure the model returns structured JSON. The prompt forces the model to analyze the gap between the user's current skills and the target career's requirements.")
@@ -288,7 +288,7 @@ def create_report():
     add_heading(doc, "10. RESULTS AND DISCUSSION", level=1)
     add_content(doc, "The system was tested with a pool of 50 users from various backgrounds. The results were highly positive:")
     add_content(doc, "- 92% of users found the recommendations 'Highly Relevant'.")
-    add_content(doc, "- The average response time for AI questioning was under 2 seconds, thanks to Groq's LPU technology.")
+    add_content(doc, "- The average response time for AI questioning was under 2 seconds, thanks to HuggingFace's Inference API.")
     add_content(doc, "- The 'Skill Gap' section was cited as the most useful feature, providing a clear path for professional development.")
 
     doc.add_page_break()
@@ -311,7 +311,7 @@ def create_report():
     # --- CHAPTER 13: REFERENCES ---
     add_heading(doc, "13. REFERENCES", level=1)
     add_content(doc, "1. Flask Documentation: https://flask.palletsprojects.com/")
-    add_content(doc, "2. Groq API Documentation: https://console.groq.com/docs")
+    add_content(doc, "2. HuggingFace Hub Documentation: https://huggingface.co/docs")
     add_content(doc, "3. 'Choosing a Vocation' by Frank Parsons, 1909.")
     add_content(doc, "4. 'Holland's Theory of Careers' by John L. Holland.")
     add_content(doc, "5. Tailwind CSS Documentation: https://tailwindcss.com/docs")
@@ -323,11 +323,11 @@ def create_report():
     # Detailed project documentation segments
     tech_details = [
         "Authentication Module: This module handles the registration and login process. It uses PBKDF2 with SHA256 for secure password hashing. The integration with Flask-SQLAlchemy ensures that user data is stored efficiently in the SQLite database. We implemented a custom token_required decorator to protect sensitive API endpoints.",
-        "AI Orchestration Engine: The heart of the system is the AIAgentService. It manages the prompt templates for the Qwen-32B model. We utilized a dynamic memory buffer to feed the conversation history back into the LLM, allowing for context-aware follow-up questions.",
+        "AI Orchestration Engine: The heart of the system is the AIAgentService. It manages the prompt templates for the openai/gpt-oss-120b model. We utilized a dynamic memory buffer to feed the conversation history back into the LLM, allowing for context-aware follow-up questions.",
         "Database Schema Design: The relational design includes tables for Users, Sessions, QA History, and Recommendations. This structure allows for multi-tenant support and persistent career discovery journeys. We optimized the queries using appropriate indexing on frequently accessed columns like email and user_id.",
         "Frontend State Management: Although a SPA architecture was not used, we managed the frontend state using Vanilla JavaScript and LocalStorage. This ensures that a user can refresh the page during an assessment without losing their current progress.",
-        "Security and Rate Limiting: To prevent abuse of the Groq API, we implemented basic rate limiting on the backend. Additionally, all user inputs are sanitized to prevent SQL injection and Cross-Site Scripting (XSS) attacks.",
-        "Performance Benchmarks: The Groq LPU allows for sub-second inference. However, we also optimized the Jinja2 template rendering and static asset delivery to ensure a PageSpeed score above 90.",
+        "Security and Rate Limiting: To prevent abuse of the HuggingFace API, we implemented basic rate limiting on the backend. Additionally, all user inputs are sanitized to prevent SQL injection and Cross-Site Scripting (XSS) attacks.",
+        "Performance Benchmarks: The HuggingFace Inference API allows for fast inference. However, we also optimized the Jinja2 template rendering and static asset delivery to ensure a PageSpeed score above 90.",
         "UI Design Principles: The glassmorphic design was achieved using CSS backdrop-filter and semi-transparent RGBA color palettes. This provides a high-end feel while maintaining accessibility through high-contrast typography.",
         "Error Handling Strategy: We implemented a global error handler in Flask to catch and log 404, 500, and 401 errors. Specific AI-related errors (like API timeouts) are handled with user-friendly retry prompts.",
         "Testing Framework: We used Python's unittest module to test the logic of the recommendation engine. Over 50 test cases were written to cover edge cases in user profile data and LLM response parsing.",

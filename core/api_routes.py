@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 import jwt
 from flask import Blueprint, request, jsonify, current_app
 from werkzeug.security import generate_password_hash, check_password_hash
-from groq import Groq
+from huggingface_hub import InferenceClient
 
 from core.models import (
     create_user, get_user_by_email, get_user_by_id, update_user,
@@ -17,12 +17,12 @@ from core.utils import token_required, _get_user_profile, _get_qa_history_list
 
 api_bp = Blueprint('api', __name__)
 
-def get_groq_client():
-    GROQ_API_KEY = os.environ.get('GROQ_API_KEY')
-    return Groq(api_key=GROQ_API_KEY) if GROQ_API_KEY else None
+def get_hf_client():
+    HF_API_KEY = os.environ.get('HF_API_KEY')
+    return InferenceClient(api_key=HF_API_KEY) if HF_API_KEY else None
 
-def get_groq_model():
-    return os.environ.get('GROQ_MODEL', 'qwen/qwen3-32b')
+def get_hf_model():
+    return os.environ.get('HF_MODEL', 'openai/gpt-oss-120b')
 
 @api_bp.route('/firebase-config', methods=['GET'])
 def firebase_config():
@@ -204,9 +204,9 @@ def undo_last(current_user):
     return jsonify({'message': 'Undo successful'})
 
 def _ask_next_question(user, session):
-    groq_client = get_groq_client()
-    if not groq_client:
-        return jsonify({'message': 'Groq client not configured'}), 500
+    hf_client = get_hf_client()
+    if not hf_client:
+        return jsonify({'message': 'HuggingFace client not configured'}), 500
         
     profile = _get_user_profile(user)
     qa_history = _get_qa_history_list(session['id'])
@@ -244,8 +244,8 @@ Respond ONLY in JSON:
     user_prompt = f"User Profile: {json.dumps(profile)}\nQ&A History: {json.dumps(qa_history)}\nGenerate next response in JSON mode."
     
     try:
-        response = groq_client.chat.completions.create(
-            model=get_groq_model(),
+        response = hf_client.chat.completions.create(
+            model=get_hf_model(),
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
@@ -258,7 +258,7 @@ Respond ONLY in JSON:
         result['sessionId'] = session['id']
         return jsonify(result)
     except Exception as e:
-        current_app.logger.error(f"Error calling Groq: {str(e)}")
+        current_app.logger.error(f"Error calling HuggingFace: {str(e)}")
         return jsonify({'message': 'Error generating question', 'error': str(e)}), 500
 
 @api_bp.route('/session/finish', methods=['POST'])
@@ -271,9 +271,9 @@ def finish_session(current_user):
         
     update_session(session['id'], {'status': 'completed'})
     
-    groq_client = get_groq_client()
-    if not groq_client:
-        return jsonify({'message': 'Groq client not configured'}), 500
+    hf_client = get_hf_client()
+    if not hf_client:
+        return jsonify({'message': 'HuggingFace client not configured'}), 500
         
     profile = _get_user_profile(current_user)
     qa_history = _get_qa_history_list(session['id'])
@@ -329,8 +329,8 @@ Respond ONLY in JSON matching exactly this wrapper structure:
     user_prompt = f"User Profile: {json.dumps(profile)}\nFull Q&A Session: {json.dumps(qa_history)}\nGenerate top 10 recommendations in JSON mode."
 
     try:
-        response = groq_client.chat.completions.create(
-            model=get_groq_model(),
+        response = hf_client.chat.completions.create(
+            model=get_hf_model(),
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
@@ -358,7 +358,7 @@ Respond ONLY in JSON matching exactly this wrapper structure:
         set_recommendations(session['id'], rec_docs)
         return jsonify({'message': 'Ranking complete', 'sessionId': session['id']})
     except Exception as e:
-        current_app.logger.error(f"Error calling Groq: {str(e)}")
+        current_app.logger.error(f"Error calling HuggingFace: {str(e)}")
         return jsonify({'message': 'Error generating recommendations', 'error': str(e)}), 500
 
 @api_bp.route('/session/<session_id>', methods=['GET'])
@@ -454,9 +454,9 @@ CRITICAL RULES:
 
 {context_str}"""
 
-    groq_client = get_groq_client()
-    if not groq_client:
-        return jsonify({'message': 'Groq client not configured'}), 500
+    hf_client = get_hf_client()
+    if not hf_client:
+        return jsonify({'message': 'HuggingFace client not configured'}), 500
 
     # Build messages array for LLM
     llm_messages = [{"role": "system", "content": system_prompt}]
@@ -465,8 +465,8 @@ CRITICAL RULES:
         llm_messages.append({"role": m.get("role", "user"), "content": m.get("content", "")})
 
     try:
-        response = groq_client.chat.completions.create(
-            model=get_groq_model(),
+        response = hf_client.chat.completions.create(
+            model=get_hf_model(),
             messages=llm_messages,
             temperature=0.7,
             max_tokens=800
@@ -478,5 +478,5 @@ CRITICAL RULES:
         
         return jsonify({'reply': reply})
     except Exception as e:
-        current_app.logger.error(f"Error calling Groq for chat: {str(e)}")
+        current_app.logger.error(f"Error calling HuggingFace for chat: {str(e)}")
         return jsonify({'message': 'Error generating response', 'error': str(e)}), 500

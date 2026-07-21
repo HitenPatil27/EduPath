@@ -54,7 +54,7 @@ try {
     
     # Try installing without version constraints for problematic packages
     try {
-        & ".\edupath_env\Scripts\pip.exe" install Flask Flask-SQLAlchemy Flask-Login Flask-WTF python-dotenv PyMySQL groq requests
+        & ".\edupath_env\Scripts\pip.exe" install Flask Flask-SQLAlchemy Flask-Login Flask-WTF python-dotenv PyMySQL huggingface_hub requests
         Write-Host "Core dependencies installed successfully" -ForegroundColor Green
         Write-Host "Note: Some ML libraries may need manual installation" -ForegroundColor Yellow
     } catch {
@@ -84,11 +84,11 @@ try {
 import os
 from dotenv import load_dotenv
 load_dotenv()
-required_vars = ['DATABASE_URL', 'GROQ_API_KEY', 'SECRET_KEY']
+required_vars = ['DATABASE_URL', 'HF_API_KEY', 'SECRET_KEY']
 missing_vars = []
 for var in required_vars:
     value = os.getenv(var)
-    if not value or value in ['your-groq-api-key-here', 'your-secret-key-here']:
+    if not value or value in ['your-huggingface-api-key-here', 'your-secret-key-here']:
         missing_vars.append(var)
 if missing_vars:
     print('MISSING: ' + ', '.join(missing_vars))
@@ -155,7 +155,7 @@ Write-Host "======================================" -ForegroundColor Green
 
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Cyan
-Write-Host "1. Edit .env file with your MySQL and Groq API credentials" -ForegroundColor White
+Write-Host "1. Edit .env file with your MySQL and HuggingFace API credentials" -ForegroundColor White
 Write-Host "2. Make sure MySQL Server is running" -ForegroundColor White
 Write-Host "3. Run the application:" -ForegroundColor White
 Write-Host "   .\edupath_env\Scripts\python.exe app.py" -ForegroundColor Yellow

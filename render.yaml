@@ -17,9 +17,9 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
-      - key: GROQ_API_KEY
+      - key: HF_API_KEY
         sync: false
-      - key: GROQ_MODEL
+      - key: HF_MODEL
         sync: false
       - key: PORT
         sync: false

@@ -73,7 +73,7 @@
         showLoader();
         const res = await apiFetch('/api/session/start', { method: 'POST' });
         if (res) {
-            handleGroqResponse(res);
+            handleAIResponse(res);
         }
     }
 
@@ -117,10 +117,10 @@
             body: JSON.stringify(payload)
         });
         
-        if (res) handleGroqResponse(res);
+        if (res) handleAIResponse(res);
     }
 
-    function handleGroqResponse(data) {
+    function handleAIResponse(data) {
         if (data.done) {
             // Assessment is complete, trigger ranking
             finishSession(currentSessionId);

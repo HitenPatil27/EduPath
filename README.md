@@ -1,6 +1,6 @@
 # EduPath AI - Career Recommendation System
 
-EduPath AI is a premium, AI-powered career recommendation platform. It leverages an interactive onboarding experience and an adaptive Q&A session driven by the Groq API (Qwen 32B) to rank and recommend the top 10 best-fit careers.
+EduPath AI is a premium, AI-powered career recommendation platform. It leverages an interactive onboarding experience and an adaptive Q&A session driven by the HuggingFace Inference API (openai/gpt-oss-120b) to rank and recommend the top 10 best-fit careers.
 
 ## Features
 - **Adaptive AI Assessment**: Interactive questionnaire that evolves based on your profile and previous answers.
@@ -10,9 +10,9 @@ EduPath AI is a premium, AI-powered career recommendation platform. It leverages
 - **Privacy First**: Local SQLite storage and secure JWT-based authentication.
 
 ## Tech Stack
-- **Backend**: Python + Flask, SQLite, Groq SDK.
+- **Backend**: Python + Flask, SQLite, HuggingFace Hub SDK.
 - **Frontend**: Vanilla JS, Tailwind CSS, Google Fonts (Outfit).
-- **AI**: Qwen 32B via Groq API.
+- **AI**: openai/gpt-oss-120b via HuggingFace Inference API.
 
 ## Setup & Running
 
@@ -22,7 +22,7 @@ EduPath AI is a premium, AI-powered career recommendation platform. It leverages
    pip install -r requirements.txt
    ```
 3. **Configure API Key**:
-   Create a `.env` file from `.env.example` and add your `GROQ_API_KEY`.
+   Create a `.env` file from `.env.example` and add your `HF_API_KEY`.
 4. **Run the App**:
    ```bash
    python app.py
