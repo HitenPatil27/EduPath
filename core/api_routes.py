@@ -17,6 +17,21 @@ from core.utils import token_required, _get_user_profile, _get_qa_history_list
 
 api_bp = Blueprint('api', __name__)
 
+import re
+
+def _parse_json_response(raw_text):
+    if not raw_text:
+        return {}
+    cleaned = re.sub(r'^```(?:json)?\s*', '', raw_text.strip(), flags=re.IGNORECASE)
+    cleaned = re.sub(r'\s*```$', '', cleaned)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+        if match:
+            return json.loads(match.group(0))
+        raise
+
 def get_hf_client():
     HF_API_KEY = os.environ.get('HF_API_KEY')
     HF_BASE_URL = os.environ.get('HF_BASE_URL', 'https://api.groq.com/openai/v1')
@@ -270,7 +285,7 @@ Respond ONLY in valid JSON format:
             temperature=0.7
         )
         msg = response.choices[0].message.content
-        result = json.loads(msg)
+        result = _parse_json_response(msg)
         result['sessionId'] = session['id']
         return jsonify(result)
     except Exception as e:
@@ -354,7 +369,8 @@ Respond ONLY in JSON matching exactly this wrapper structure:
             response_format={"type": "json_object"},
             temperature=0.7
         )
-        result = json.loads(response.choices[0].message.content)
+        msg = response.choices[0].message.content
+        result = _parse_json_response(msg)
         recs = result.get('recommendations', [])
         
         # Prepare recommendations for Firestore
