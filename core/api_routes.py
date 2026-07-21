@@ -217,8 +217,8 @@ def _ask_next_question(user, session):
     qa_history = _get_qa_history_list(session['id'])
     num_answered = len(qa_history)
 
-    # Hard cap: if 5 questions have been answered, complete the assessment immediately
-    if num_answered >= 5:
+    # Safety fallback to prevent unexpected infinite loops
+    if num_answered >= 12:
         return jsonify({'done': True, 'sessionId': session['id']})
     
     next_step = profile.get('nextStep', '')
@@ -240,22 +240,22 @@ def _ask_next_question(user, session):
     else:
         strategy = "The user is Exploring Options. Act as a broad diagnostic guide. Ask questions that reveal hidden passions or personality traits that align with diverse career clusters."
 
-    system_prompt = f"""You are an expert, efficient career counselor AI. Your goal is to quickly understand the user and generate personalized career recommendations with MINIMAL questions (3 to 5 questions maximum).
+    system_prompt = f"""You are an empathetic, highly intelligent AI career counselor. Your goal is to evaluate the student's profile and Q&A history to thoroughly understand their interests, strengths, and goals.
 
 COUNSELING STRATEGY:
 {strategy}
 
-CURRENT PROGRESS:
-- Questions answered so far: {num_answered}
+CURRENT EVALUATION INSTRUCTIONS:
+- Review the User Profile and Q&A History carefully.
+- Ask ONE targeted, high-value follow-up question at a time to fill key gaps in your understanding.
+- AS SOON AS you have gathered sufficient insight into their background, preferences, and aptitude to generate top-tier personalized career recommendations, mark the assessment complete.
+- Do NOT ask repetitive or redundant questions.
 
-CRITICAL RULES:
-1. If {num_answered} >= 3 OR if you already have enough information to understand their preferences, return {{ "done": true }}.
-2. Do NOT ask repetitive or unnecessary questions. Keep questions brief and high-impact.
-3. Respond ONLY in valid JSON:
-   - If more questions needed (MAX 3-5 total):
-     {{ "question": "...", "context": "why you're asking", "type": "single-select|multi-select|slider|text", "options": [...] }}
-   - If enough data collected (or 3+ questions answered):
-     {{ "done": true }}"""
+Respond ONLY in valid JSON format:
+- If more information is needed to understand the student:
+  {{ "question": "...", "context": "why this question helps refine your recommendation", "type": "single-select|multi-select|slider|text", "options": [...] }}
+- If you have sufficient data to generate personalized recommendations:
+  {{ "done": true }}"""
 
     user_prompt = f"User Profile: {json.dumps(profile)}\nQ&A History: {json.dumps(qa_history)}\nGenerate next response in JSON mode."
     
