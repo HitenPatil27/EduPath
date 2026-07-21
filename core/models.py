@@ -16,8 +16,13 @@ Firestore collection layout
   sessions/{sid}/recommendations/{auto}
 """
 
-from datetime import datetime, timezone
-from core.extensions import db          # Firestore client
+from core.extensions import get_db
+
+def _db():
+    client = get_db()
+    if client is None:
+        raise RuntimeError("Firebase is not initialized. Please set FIREBASE_CREDENTIALS_JSON or FIREBASE_CREDENTIALS environment variable.")
+    return client
 
 
 # ─────────────────────────── helpers ──────────────────────────────────
@@ -39,7 +44,7 @@ def _doc_to_dict(doc):
 
 def create_user(name, email, password_hash):
     """Create a new user document. Returns the new user dict."""
-    user_ref = db.collection('users').document()
+    user_ref = _db().collection('users').document()
     user_data = {
         'name': name,
         'email': email,
@@ -59,7 +64,7 @@ def create_user(name, email, password_hash):
 
 def get_user_by_email(email):
     """Return user dict or None."""
-    docs = db.collection('users').where('email', '==', email).limit(1).stream()
+    docs = _db().collection('users').where('email', '==', email).limit(1).stream()
     for doc in docs:
         return _doc_to_dict(doc)
     return None
@@ -67,20 +72,20 @@ def get_user_by_email(email):
 
 def get_user_by_id(user_id):
     """Return user dict or None."""
-    doc = db.collection('users').document(user_id).get()
+    doc = _db().collection('users').document(user_id).get()
     return _doc_to_dict(doc)
 
 
 def update_user(user_id, data: dict):
     """Merge-update fields on a user document."""
-    db.collection('users').document(user_id).update(data)
+    _db().collection('users').document(user_id).update(data)
 
 
 # ─────────────────────── Interests / Hobbies ──────────────────────────
 
 def set_user_interests(user_id, interests: list):
     """Replace all interests for a user."""
-    col = db.collection('users').document(user_id).collection('interests')
+    col = _db().collection('users').document(user_id).collection('interests')
     # delete existing
     for doc in col.stream():
         doc.reference.delete()
@@ -90,13 +95,13 @@ def set_user_interests(user_id, interests: list):
 
 
 def get_user_interests(user_id) -> list:
-    col = db.collection('users').document(user_id).collection('interests')
+    col = _db().collection('users').document(user_id).collection('interests')
     return [d.to_dict()['interest'] for d in col.stream()]
 
 
 def set_user_hobbies(user_id, hobbies: list):
     """Replace all hobbies for a user."""
-    col = db.collection('users').document(user_id).collection('hobbies')
+    col = _db().collection('users').document(user_id).collection('hobbies')
     for doc in col.stream():
         doc.reference.delete()
     for hobby in hobbies:
@@ -104,7 +109,7 @@ def set_user_hobbies(user_id, hobbies: list):
 
 
 def get_user_hobbies(user_id) -> list:
-    col = db.collection('users').document(user_id).collection('hobbies')
+    col = _db().collection('users').document(user_id).collection('hobbies')
     return [d.to_dict()['hobby'] for d in col.stream()]
 
 
@@ -112,7 +117,7 @@ def get_user_hobbies(user_id) -> list:
 
 def create_session(user_id):
     """Create a new counseling session. Returns session dict."""
-    ref = db.collection('sessions').document()
+    ref = _db().collection('sessions').document()
     data = {
         'userId': user_id,
         'createdAt': _now(),
@@ -125,7 +130,7 @@ def create_session(user_id):
 
 def get_session(session_id, user_id=None):
     """Return session dict or None.  Optionally verify ownership."""
-    doc = db.collection('sessions').document(session_id).get()
+    doc = _db().collection('sessions').document(session_id).get()
     s = _doc_to_dict(doc)
     if s and user_id and s.get('userId') != user_id:
         return None
@@ -133,12 +138,12 @@ def get_session(session_id, user_id=None):
 
 
 def update_session(session_id, data: dict):
-    db.collection('sessions').document(session_id).update(data)
+    _db().collection('sessions').document(session_id).update(data)
 
 
 def get_sessions_for_user(user_id):
     """Return list of session dicts for a user, newest first."""
-    docs = (db.collection('sessions')
+    docs = (_db().collection('sessions')
               .where('userId', '==', user_id)
               .stream())
     results = [_doc_to_dict(d) for d in docs]
@@ -150,7 +155,7 @@ def get_sessions_for_user(user_id):
 # ─────────────────────────── QA History ───────────────────────────────
 
 def add_qa(session_id, question, answer, qa_type='text'):
-    ref = db.collection('sessions').document(session_id).collection('qa_history').document()
+    ref = _db().collection('sessions').document(session_id).collection('qa_history').document()
     data = {
         'question': question,
         'answer': answer,
@@ -163,7 +168,7 @@ def add_qa(session_id, question, answer, qa_type='text'):
 
 
 def get_qa_history(session_id) -> list:
-    docs = (db.collection('sessions')
+    docs = (_db().collection('sessions')
               .document(session_id)
               .collection('qa_history')
               .order_by('createdAt')
@@ -174,7 +179,7 @@ def get_qa_history(session_id) -> list:
 def delete_last_qa(session_id):
     """Delete the most recent QA entry. Returns True if something was deleted."""
     docs = list(
-        db.collection('sessions')
+        _db().collection('sessions')
           .document(session_id)
           .collection('qa_history')
           .order_by('createdAt', direction='DESCENDING')
@@ -191,7 +196,7 @@ def delete_last_qa(session_id):
 
 def set_recommendations(session_id, recs: list):
     """Replace all recommendations for a session."""
-    col = db.collection('sessions').document(session_id).collection('recommendations')
+    col = _db().collection('sessions').document(session_id).collection('recommendations')
     # delete existing
     for doc in col.stream():
         doc.reference.delete()
@@ -201,7 +206,7 @@ def set_recommendations(session_id, recs: list):
 
 
 def get_recommendations(session_id) -> list:
-    docs = (db.collection('sessions')
+    docs = (_db().collection('sessions')
               .document(session_id)
               .collection('recommendations')
               .order_by('rank')
