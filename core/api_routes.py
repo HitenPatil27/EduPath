@@ -19,10 +19,15 @@ api_bp = Blueprint('api', __name__)
 
 def get_hf_client():
     HF_API_KEY = os.environ.get('HF_API_KEY')
-    return InferenceClient(api_key=HF_API_KEY) if HF_API_KEY else None
+    HF_BASE_URL = os.environ.get('HF_BASE_URL', 'https://api.groq.com/openai/v1')
+    if not HF_API_KEY:
+        return None
+    if HF_BASE_URL:
+        return InferenceClient(base_url=HF_BASE_URL, api_key=HF_API_KEY)
+    return InferenceClient(api_key=HF_API_KEY)
 
 def get_hf_model():
-    return os.environ.get('HF_MODEL', 'openai/gpt-oss-120b')
+    return os.environ.get('HF_MODEL', 'llama-3.3-70b-versatile')
 
 @api_bp.route('/firebase-config', methods=['GET'])
 def firebase_config():
